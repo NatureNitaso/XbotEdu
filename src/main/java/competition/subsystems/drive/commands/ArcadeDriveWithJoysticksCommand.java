@@ -15,6 +15,7 @@ public class ArcadeDriveWithJoysticksCommand extends BaseCommand {
     public ArcadeDriveWithJoysticksCommand(DriveSubsystem driveSubsystem, OperatorInterface oi) {
         this.operatorInterface = oi;
         this.drive = driveSubsystem;
+        addRequirements(driveSubsystem);
     }
 
     @Override
@@ -25,13 +26,18 @@ public class ArcadeDriveWithJoysticksCommand extends BaseCommand {
     @Override
     public void execute() {
         // Tracks the x and y position of the joystick and determines the course of action to take
-        double xVal = operatorInterface.gamepad.getLeftStickX();
-        double yVal = operatorInterface.gamepad.getLeftStickY();
+        double leftRight = operatorInterface.gamepad.getLeftStickX();
+        double upDown = operatorInterface.gamepad.getLeftStickY();
 
+        MoveForward(leftRight, upDown);
+
+    }
+
+    public void MoveForward(double leftRight, double upDown){
         // Checks for the vals before determining action
-        if (xVal > 0 && yVal == 0)
+        if (upDown > 0 && leftRight <= 0)
         {
-            drive.tankDrive(xVal, xVal);
+            drive.tankDrive(upDown, upDown);
         }
     }
 
