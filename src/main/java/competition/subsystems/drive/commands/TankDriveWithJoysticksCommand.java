@@ -29,9 +29,6 @@ public class TankDriveWithJoysticksCommand extends BaseCommand {
 
     @Override
     public void execute() {
-        // You need to get values from the joysticks and pass them into the motors.
-        double rightValue = operatorInterface.gamepad.getRightVector().y;
-
         // Get values from the joysticks:
         // Here's how to get how far the left joystick's Y-axis is pushed:
         double leftValue = operatorInterface.gamepad.getLeftVector().y;
