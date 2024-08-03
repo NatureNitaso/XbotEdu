@@ -45,6 +45,7 @@ public class DriveSubsystem extends BaseDriveSubsystem implements DataFrameRefre
         frontLeft.set(leftPower);
         //Sets the power of all the right motors by rightpower
         frontRight.set(rightPower);
+
     }
 
     @Override
