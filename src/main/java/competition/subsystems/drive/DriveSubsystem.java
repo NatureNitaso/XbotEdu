@@ -43,8 +43,10 @@ public class DriveSubsystem extends BaseDriveSubsystem implements DataFrameRefre
         // to
         // the value of leftPower:
         frontLeft.set(leftPower);
+        //Sets the power of all the right motors by rightpower
         frontRight.set(rightPower);
     }
+
     @Override
     public PIDManager getPositionalPid() {
         // TODO: Auto-generated method stub
