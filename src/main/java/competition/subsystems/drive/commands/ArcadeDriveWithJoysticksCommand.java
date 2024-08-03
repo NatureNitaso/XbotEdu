@@ -29,25 +29,20 @@ public class ArcadeDriveWithJoysticksCommand extends BaseCommand {
         double leftRight = operatorInterface.gamepad.getLeftStickX();
         double upDown = operatorInterface.gamepad.getLeftStickY();
 
-        MoveForward(leftRight, upDown);
-        MoveBackward(leftRight, upDown);
+        Move(leftRight, upDown);
 
     }
 
-    public void MoveForward(double leftRight, double upDown){
+    public void Move(double left, double right){
         // Checks for the vals before determining action
-        if (upDown > 0 && leftRight <= 0)
-        {
-            drive.tankDrive(upDown, upDown);
-        }
+
+        double leftPower = right - left;
+        double rightPower = right + left;
+
+        drive.tankDrive(leftPower, rightPower);
+
     }
 
-    public void MoveBackward(double leftRight, double upDown){
-        // Checks condition before initalizing the action
-        if (upDown < 0 && leftRight >= 0)
-        {
-            drive.tankDrive(upDown, upDown);
-        }
-    }
+
 
 }
