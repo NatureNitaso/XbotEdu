@@ -21,7 +21,6 @@ public class DriveToPositionCommandTest extends BaseDriveTest {
     protected double periodMultiplier = 1;
     LinearEngine engine;
     DriveToPositionCommand command;
-    DriveSubsystem drive;
     private int loops;
     
     public static interface AsyncLinearIntervalJob {
@@ -114,6 +113,7 @@ public class DriveToPositionCommandTest extends BaseDriveTest {
         for(int i = 0; i < 300; i++) {
             
             engine.step(getForwardPower());
+            drive.refreshDataFrame();
             counter++;
             
             // model change in position based on motor power
