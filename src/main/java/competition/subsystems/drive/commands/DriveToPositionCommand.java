@@ -11,6 +11,7 @@ public class DriveToPositionCommand extends BaseCommand {
     DriveSubsystem drive;
     PoseSubsystem pose;
     double targetPosition;
+    double lastPose = 0;
 
     @Inject
     public DriveToPositionCommand(DriveSubsystem driveSubsystem, PoseSubsystem pose) {
@@ -35,30 +36,35 @@ public class DriveToPositionCommand extends BaseCommand {
     public void execute() {
         // Here you'll need to figure out a technique that:
         // - Gets the robot to move to the target position
-        double distance = targetPosition - pose.getPosition();
+
+        double distance = (targetPosition - pose.getPosition());
         // Finds out the distance between the target position form the position of the robot
         // - Hint: use pose.getPosition() to find out where you are
         // - Gets the robot stop (or at least be moving really really slowly) at the
         // target position
-        if (distance != 0)
-        {
-            drive.tankDrive(100, 100);
-        }
-        else
-        {
-            drive.tankDrive(-100, -100);
-        }
-
-
+        double position = pose.getPosition();
+        double speed = lastPose - position;
+        double brake = -speed * .5;
+        double power = (targetPosition - pose.getPosition()) * .5;
+        double input = brake + power;
+        drive.tankDrive(input, input);
         // How you do this is up to you. If you get stuck, ask a mentor or student for
-        // some hints!
+        // some hints
+        lastPose = position;
     }
 
     @Override
     public boolean isFinished() {
         // Modify this to return true once you have met your goal,
         // and you're moving fairly slowly (ideally stopped)
-        return true;
+        if (pose.getPosition() == targetPosition)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 }
